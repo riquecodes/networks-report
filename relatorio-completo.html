@@ -79,7 +79,8 @@
   <body>
     <header>
       <h1>Infraestrutura de Rede Linux</h1>
-      <p>Serviços: DHCP (ISC), DNS (Bind9) e Web (Apache)</p>
+      <h4>Configuração de Servidor Linux (DNS, DHCP e Web)</h4>
+      <h5>Henrique Riva, Mateus Bertuol, Samuel Muller</h5>
     </header>
 
     <div class="container">
@@ -114,7 +115,7 @@
         </div>
 
         <div class="img-container">
-          <img src="dhcp-status.png" alt="Status DHCP" />
+          <img src="images/testandobind9.png" alt="Status DHCP" />
           <span class="img-label">Fig 1: Serviço DHCP ativo e rodando.</span>
         </div>
       </div>
@@ -132,14 +133,14 @@
           <code>primario</code> para o IP 10.40.40.1.
         </p>
         <div class="img-container">
-          <img src="bind-forward.png" alt="Zona Direta" />
+          <img src="images/criacaoforwardgrenal.png" alt="Zona Direta" />
           <span class="img-label">Fig 2: Configuração da Zona Forward.</span>
         </div>
 
         <h3>Zona Reversa</h3>
         <p>Arquivo configurado para resolução reversa (IP para Nome).</p>
         <div class="img-container">
-          <img src="bind-reverse.png" alt="Zona Reversa" />
+          <img src="images/criacaoreversegrenal.png" alt="Zona Reversa" />
           <span class="img-label">Fig 3: Configuração da Zona Reverse.</span>
         </div>
       </div>
@@ -151,7 +152,7 @@
           nome de domínio.
         </p>
         <div class="img-container">
-          <img src="apache-install.png" alt="Instalação Apache" />
+          <img src="images/testandoapache.png" alt="Instalação Apache" />
           <span class="img-label">Fig 4: Instalação do pacote apache2.</span>
         </div>
       </div>
@@ -163,7 +164,7 @@
         <h3>Obtenção de IP (DHCP)</h3>
         <p>O cliente recebeu o IP, Máscara e DNS corretos automaticamente.</p>
         <div class="img-container">
-          <img src="windows-ipconfig.png" alt="Ipconfig" />
+          <img src="images/verificarips.png" alt="Ipconfig" />
           <span class="img-label"
             >Fig 5: Comando ipconfig /all demonstrando o sucesso do DHCP.</span
           >
@@ -175,7 +176,7 @@
           servidor com sucesso.
         </p>
         <div class="img-container">
-          <img src="windows-ping.png" alt="Ping" />
+          <img src="images/testandoconexao.png" alt="Ping" />
           <span class="img-label"
             >Fig 6: Ping com resolução de nomes funcionando.</span
           >
