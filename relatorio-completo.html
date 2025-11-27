@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Relatório de Redes: DHCP e DNS</title>
+    <style>
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background-color: #f4f4f9;
+        color: #333;
+        margin: 0;
+      }
+      header {
+        background: #0044cc;
+        color: white;
+        padding: 20px;
+        text-align: center;
+      }
+      .container {
+        max-width: 900px;
+        margin: 20px auto;
+        padding: 0 15px;
+      }
+      .card {
+        background: white;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      h2 {
+        color: #0044cc;
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+      }
+      h3 {
+        color: #555;
+        margin-top: 20px;
+        font-size: 1.1em;
+      }
+
+      /* Estilo para código */
+      .code {
+        background: #222;
+        color: #88ff88;
+        padding: 15px;
+        border-radius: 5px;
+        font-family: monospace;
+        overflow-x: auto;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+      }
+      .comment {
+        color: #888;
+      }
+
+      /* Estilo para imagens */
+      .img-container {
+        text-align: center;
+        margin-top: 15px;
+        background: #eee;
+        padding: 10px;
+        border-radius: 5px;
+      }
+      img {
+        max-width: 100%;
+        border: 1px solid #ccc;
+      }
+      .img-label {
+        font-size: 0.85em;
+        color: #666;
+        margin-top: 5px;
+        display: block;
+        font-style: italic;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Infraestrutura de Rede Linux</h1>
+      <p>Serviços: DHCP (ISC), DNS (Bind9) e Web (Apache)</p>
+    </header>
+
+    <div class="container">
+      <div class="card">
+        <h2>1. Servidor DHCP (ISC-DHCP-Server)</h2>
+        <p>
+          Configuração inicial para automatizar a entrega de IPs na rede e
+          definir o servidor DNS padrão.
+        </p>
+
+        <h3>Configuração do Escopo (dhcpd.conf)</h3>
+        <p>
+          Definição da subnet <code>10.40.40.0/24</code>, gateway e apontamento
+          para o DNS local.
+        </p>
+        <div class="code">
+          subnet 10.40.40.0 netmask 255.255.255.0 {<br />
+          &nbsp;&nbsp;range 10.40.40.100 10.40.40.200;<br />
+          &nbsp;&nbsp;option routers 10.40.40.1;<br />
+          &nbsp;&nbsp;option domain-name-servers 10.40.40.1;<br />
+          &nbsp;&nbsp;option domain-name "grenal.edu";<br />
+          }
+        </div>
+
+        <h3>Reserva de IP (Segurança)</h3>
+        <p>Fixação de IP para um host específico via endereço MAC.</p>
+        <div class="code">
+          host juvenil {<br />
+          &nbsp;&nbsp;hardware ethernet 00:08:54:25:73:1a;<br />
+          &nbsp;&nbsp;fixed-address 10.40.40.157;<br />
+          }
+        </div>
+
+        <div class="img-container">
+          <img src="dhcp-status.png" alt="Status DHCP" />
+          <span class="img-label">Fig 1: Serviço DHCP ativo e rodando.</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>2. Servidor DNS (Bind9)</h2>
+        <p>
+          Configuração da resolução de nomes para o domínio
+          <code>grenal.teste</code>.
+        </p>
+
+        <h3>Zona Direta</h3>
+        <p>
+          Arquivo configurado para apontar os nomes <code>www</code> e
+          <code>primario</code> para o IP 10.40.40.1.
+        </p>
+        <div class="img-container">
+          <img src="bind-forward.png" alt="Zona Direta" />
+          <span class="img-label">Fig 2: Configuração da Zona Forward.</span>
+        </div>
+
+        <h3>Zona Reversa</h3>
+        <p>Arquivo configurado para resolução reversa (IP para Nome).</p>
+        <div class="img-container">
+          <img src="bind-reverse.png" alt="Zona Reversa" />
+          <span class="img-label">Fig 3: Configuração da Zona Reverse.</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>3. Servidor Web (Apache)</h2>
+        <p>
+          Instalação do servidor web para validar o acesso às páginas através do
+          nome de domínio.
+        </p>
+        <div class="img-container">
+          <img src="apache-install.png" alt="Instalação Apache" />
+          <span class="img-label">Fig 4: Instalação do pacote apache2.</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>4. Validação no Cliente (Windows)</h2>
+        <p>Testes de conectividade realizados na estação de trabalho.</p>
+
+        <h3>Obtenção de IP (DHCP)</h3>
+        <p>O cliente recebeu o IP, Máscara e DNS corretos automaticamente.</p>
+        <div class="img-container">
+          <img src="windows-ipconfig.png" alt="Ipconfig" />
+          <span class="img-label"
+            >Fig 5: Comando ipconfig /all demonstrando o sucesso do DHCP.</span
+          >
+        </div>
+
+        <h3>Teste de Resolução (DNS e Ping)</h3>
+        <p>
+          O ping em <code>www.grenal.teste</code> foi resolvido para o IP do
+          servidor com sucesso.
+        </p>
+        <div class="img-container">
+          <img src="windows-ping.png" alt="Ping" />
+          <span class="img-label"
+            >Fig 6: Ping com resolução de nomes funcionando.</span
+          >
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

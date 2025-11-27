@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projeto Infraestrutura de Redes</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f2f5;
+        color: #333;
+      }
+      header {
+        background: linear-gradient(90deg, #0033cc 0%, #0055ff 100%);
+        color: #fff;
+        padding: 2rem 0;
+        text-align: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      }
+      header h1 {
+        margin: 0;
+        font-size: 2.5rem;
+      }
+      header p {
+        font-size: 1.2rem;
+        opacity: 0.9;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 20px auto;
+        padding: 20px;
+      }
+
+      .card {
+        background: white;
+        border-radius: 8px;
+        padding: 25px;
+        margin-bottom: 30px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        color: #0033cc;
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+        margin-top: 0;
+      }
+
+      h3 {
+        color: #444;
+        margin-top: 20px;
+        margin-bottom: 5px;
+        font-size: 1.1rem;
+      }
+
+      p.desc {
+        color: #666;
+        font-size: 0.95rem;
+        margin-bottom: 15px;
+      }
+
+      .img-box {
+        background: #2d2d2d; /* Fundo escuro para destacar o terminal */
+        padding: 10px;
+        border-radius: 6px;
+        text-align: center;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+        border-radius: 4px;
+      }
+
+      footer {
+        text-align: center;
+        padding: 20px;
+        color: #666;
+        font-size: 0.9rem;
+        border-top: 1px solid #ddd;
+        margin-top: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Relatório Técnico</h1>
+      <p>Configuração de Servidor Linux (DNS, DHCP e Web)</p>
+    </header>
+
+    <div class="container">
+      <div class="card">
+        <h2>1. Configuração do DNS (Bind9)</h2>
+        <p>
+          O servidor DNS foi configurado para o domínio
+          <strong>grenal.teste</strong>. Abaixo estão os arquivos de
+          configuração das zonas.
+        </p>
+
+        <h3>Zona Direta (Forward)</h3>
+        <p class="desc">
+          Arquivo responsável por converter o nome do domínio para o endereço IP
+          (10.40.40.1).
+        </p>
+        <div class="img-box">
+          <img src="bind-forward.png" alt="Configuração da Zona Direta" />
+        </div>
+
+        <h3>Zona Reversa</h3>
+        <p class="desc">
+          Arquivo responsável por converter o endereço IP de volta para o nome.
+        </p>
+        <div class="img-box">
+          <img src="bind-reverse.png" alt="Configuração da Zona Reversa" />
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>2. Configuração do DHCP</h2>
+        <p>
+          O ISC-DHCP-Server foi configurado para distribuir IPs na faixa
+          10.40.40.0/24 e entregar automaticamente o DNS configurado acima.
+        </p>
+
+        <h3>Status do Serviço</h3>
+        <p class="desc">
+          Verificação de status mostrando o serviço "active (running)".
+        </p>
+        <div class="img-box">
+          <img src="dhcp-status.png" alt="Status do DHCP" />
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>3. Servidor Web (Apache)</h2>
+        <p>
+          Instalação do servidor Apache para hospedar páginas web e validar a
+          resolução de nomes via navegador.
+        </p>
+
+        <h3>Instalação</h3>
+        <div class="img-box">
+          <img src="apache-install.png" alt="Instalação do Apache" />
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>4. Validação no Cliente (Windows)</h2>
+        <p>
+          Testes realizados na máquina cliente para confirmar a conectividade e
+          a obtenção automática de configurações.
+        </p>
+
+        <h3>Configuração IP Recebida</h3>
+        <p class="desc">
+          O comando <code>ipconfig</code> confirma que o cliente recebeu o IP e
+          o Servidor DNS correto (10.40.40.1).
+        </p>
+        <div class="img-box">
+          <img src="windows-ipconfig.png" alt="Ipconfig no Windows" />
+        </div>
+
+        <h3>Teste de Conectividade (Ping)</h3>
+        <p class="desc">
+          O comando <code>ping www.grenal.teste</code> demonstra que o nome foi
+          resolvido corretamente para o IP do servidor.
+        </p>
+        <div class="img-box">
+          <img src="windows-ping.png" alt="Ping no Windows" />
+        </div>
+      </div>
+
+      <footer>Trabalho de Redes de Computadores - 2025</footer>
+    </div>
+  </body>
+</html>
